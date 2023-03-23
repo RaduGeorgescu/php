@@ -1,162 +1,222 @@
 <?php
 
-require_once "core/connection.php"; 
-
-
-?>
+require_once "core/connection.php"; ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>View</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-  <link href="https://cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css" rel="stylesheet">
-  <link href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css"
+        rel="stylesheet" />
+    <link
+        href="https://cdn.datatables.net/v/bs5/jq-3.6.0/jszip-2.5.0/dt-1.13.4/b-2.3.6/b-html5-2.3.6/b-print-2.3.6/date-1.4.0/datatables.min.css"
+        rel="stylesheet" />
 
 </head>
 
 <body>
-  <table id="myTable" class="display" style="width:100%">
+    <table id="myTable" class="display" style="width: 100%">
+        <thead>
+            <tr>
+                <td><input type="text" placeholder="Minimum ID" id="idMin" name="idMin"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><input type="text" placeholder="Minimum age" id="ageMin" name="ageMin"></td>
+                <td><label>Minimum date</label><input type="date" id="dateMin" name="dateMin"></td>
+                <td><input type="text" placeholder="Minimum salary" id="salaryMin" name="salaryMin"></td>
+            </tr>
+            <tr>
 
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Position</th>
-        <th>Office</th>
-        <th>Age</th>
-        <th>Start date</th>
-        <th>Salary</th>
-        <th>Edit</th>
-        <th>Details</th>
-      </tr>
-    </thead>
-    <!-- <tfoot>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Position</th>
-        <th>Office</th>
-        <th>Age</th>
-        <th>Start date</th>
-        <th>Salary</th>
-        <th>Edit</th>
-        <th>Details</th>
-      </tr>
-    </tfoot> -->
-  </table>
+                <td><input type="text" placeholder="Maximum ID" id="idMax" name="idMmax"></td>
+                <td>
+                    <!-- <input type="text" placeholder="name"> -->
+                </td>
+                <td>
+                    <!-- <input type="text" placeholder="position"> -->
+                </td>
+                <td>
+                    <!-- <input type="text" placeholder="Office"> -->
+                </td>
+                <td><input type="text" placeholder="Maximum age" id="ageMax" name="ageMax"></td>
+                <td><label>Maximum date</label><input type="date" id="dateMax" name="dateMax"></td>
+                <td><input type="text" placeholder="Maximum salary" id="salaryMax" name="salaryMax"></td>
+                <td><button id="clear-filter">clear</button></td>
+            </tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Office</th>
+            <th>Age</th>
+            <th>Start date</th>
+            <th>Salary</th>
+            <th>Edit</th>
+            <th>Details</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Age</th>
+                <th>Start date</th>
+                <th>Salary</th>
+                <th>Edit</th>
+                <th>Details</th>
+            </tr>
+        </tfoot>
+    </table>
+    <!-- CREATE -->
+    <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createModalLabel">
+                        Create Modal
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <form id="createForm" method="post">
+                        <div class="form-group">
+                            <label for="Name_create">Name:</label>
+                            <input type="text" class="form-control" id="Name_create" name="Name_create" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="Position_create">Position:</label>
+                            <input type="text" class="form-control" id="Position_create" name="Position_create"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="office_create">Office:</label>
+                            <input type="text" class="form-control" id="office_create" name="office_create" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="age_create">Age:</label>
+                            <input type="number" class="form-control" id="age_create" name="age_create" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="startDate_create">Start Date:</label>
+                            <input type="date" class="form-control" id="startDate_create" name="startDate_create"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="salary_create">Salary:</label>
+                            <input type="number" step="0.01" class="form-control" id="salary_create"
+                                name="salary_create" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="button" id="createButton" class="btn btn-primary">
+                        Save changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <script src="https://code.jquery.com/jquery-3.6.2.min.js"
-    integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
-  </script>
-  <script type="text/javascript" language="javascript"
-    src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
-  <script type="text/javascript" language="javascript"
-    src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+    <!-- DELTE -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="deleteModalLabel">Delete Modal</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this one?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-primary">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <script type="text/javascript">
-  $(document).ready(function() {
-    //gets the data, popoulates the table with the data
-    $('#myTable').DataTable({
-      dom: 'Bfrtip',
+    <!-- UPDATE -->
+    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="updateModalLabel">Update Modal</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="updateModalBody">
+                    <h1>Update Form</h1>
 
-      //make create button
-      buttons: [{
-        text: 'Create',
-        action: function(e, dt, node, config) {
-          window.location.replace("http://localhost/test/create.php");
-        }
-      }],
+                    <form id="updateForm" method="post">
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" class="form-control" id="name" name="name" value='' required>
+                        </div>
+                        <div class="form-group">
+                            <label for="position">Position:</label>
+                            <input type="text" class="form-control" id="position" name="position" value='' required>
+                        </div>
+                        <div class="form-group">
+                            <label for="office">Office:</label>
+                            <input type="text" class="form-control" id="office" name="office" value='' required>
+                        </div>
+                        <div class="form-group">
+                            <label for="age">Age:</label>
+                            <input type="number" class="form-control" id="age" name="age" value='' required>
+                        </div>
+                        <div class="form-group">
+                            <label for="startdate">Start Date (dd-mm-yyyy):</label>
+                            <input type="date" name="startdate" id="startdate" value='' required>
+                        </div>
+                        <div class="form-group">
+                            <label for="salary">Salary:</label>
+                            <input type="number" step="0.01" class="form-control" id="salary" value='' name="salary"
+                                required>
+                        </div>
+                    </form>
 
-      //request to get the data
-      ajax: {
-        url: "modules/users/read.php",
-        dataSrc: '' //left empty because we receive an array
-      },
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" id="updateButton" class=" btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-      //create the columns of the table
-      columns: [{
-          data: "ID"
-        },
-        {
-          data: 'Name'
-        },
-        {
-          data: 'Position'
-        },
-        {
-          data: 'Office'
-        },
-        {
-          data: 'Age'
-        },
-        {
-          data: 'Startdate.date',
-          render: function(data) {
-            return new Date(data).toLocaleDateString('en-GB');
-          }
-        },
-        {
-          data: 'Salary'
-        },
-        //creates delete and update buttons on routes
-        {
-          data: null,
-          render: function(data, type, row, meta) {
-            return "<form action='update.php' method='post' id='update'><button type='submit' class='btn btn-warning'>update</button></form><form action='delete' id='delete'><button type='submit' class='btn btn-danger'>delete</button></form>";
-          }
-        },
-        {
-          data: null,
-          render: function(data, type, row, meta) {
-            return "<form action='details.php' method='post' id='details'><button type='submit' class='btn btn-primary'>details</button></form>";
-          }
-        }
-      ]
-    });
-  });
+    <!-- DETAIL -->
+    <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="detailModalLabel">Detail Modal</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="detailModalBody">
 
-  //delete
-  $(document).on('click', '#myTable button', function(event) {
-    event.preventDefault();
-    //gets the row and the if of the row where the button was clicked
-    const row     = $(this).closest('tr');
-    const id      = row.find('td:first-child').text();
-    const action  = $(this).closest('form').attr('id');
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="detailCloseButton" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    //sends the user to the right page
-    if        (action === 'update') {
-      window.location.href = `http://localhost/test/update.php?data=${encodeURIComponent(id)}`;
-    } else if (action === 'details') {
-      window.location.href = `http://localhost/test/details.php?data=${encodeURIComponent(id)}`;
-    } else if (action === 'delete') {
-      
-      //if it's delete handles it here bt creating a get req to the backend and delteting the user, after that refresh the page to update the ui
-      $.ajax({
-        url: 'modules/users/delete.php',
-        type: 'GET',
-        data: {
-          id: id
-        },
-        success: function(response) {
-          alert('user deleted');
-          location.reload();
-        },
-        error: function(xhr, status, error) {
-          alert('Error in deleting your user: ', error);
-        }
-      });
-    };
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script
+        src="https://cdn.datatables.net/v/bs5/jq-3.6.0/jszip-2.5.0/dt-1.13.4/b-2.3.6/b-html5-2.3.6/b-print-2.3.6/date-1.4.0/datatables.min.js"></script>
+    <script src="javascript.js"></script>
 
-  });
-  </script>
 </body>
 
 </html>
